@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="th">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Somtank - สคริป</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent: #9f7aea;
+            --accent-hover: #805ad5;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --card-bg: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --accent: #a16fff;
+            --accent-hover: #c6aaff;
+            --border: #2d3748;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --card-bg: #2d3748;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
+            background: var(--bg-primary);
+            /* เพิ่มรูปพื้นหลังได้ที่นี่ - แก้ไข URL ตามต้องการ */
+            background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&h=1080&fit=crop&crop=center');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            /* เพิ่ม overlay เพื่อให้อ่านข้อความง่าย */
+            position: relative;
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            opacity: 0.85;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] body::before {
+            background: var(--bg-primary);
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px var(--shadow);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Messages Section */
+        .messages-section {
+            padding: 0rem 0;
+        }
+
+        .messages-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            color: var(--accent);
+        }
+
+        .message-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .message-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .message-image {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .message-text-area {
+            flex: 1;
+        }
+
+        .message-text {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background: #3fd77f;
+        }
+
+        .message-info {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .theme-toggle {
+                position: static;
+                margin-bottom: 1rem;
+                display: inline-block;
+            }
+
+            .message-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .message-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .message-text {
+                font-size: 1.1rem;
+            }
+
+            .message-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .message-content {
+                padding: 1.5rem;
+            }
+
+            .copy-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 เปลี่ยนธีม</button>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">Somtank</h1>
+            <p class="subtitle">เลื่อนลงด้านล่างเพื่อหาสคริป แมพที่ต้องการเลยนะครับ ขอบคุณครับ</p>
+        </header>
+
+        <!-- Messages Section -->
+        <section class="messages-section">
+            <h2 class="messages-title">สคริปทั้งหมดของ Somtank</h2>
+
+            <!-- Message Card 1 -->
+            <div class="message-card">
+                <div class="message-content">
+                    <div class="message-image">
+                        <img src="https://tr.rbxcdn.com/180DAY-5966d10c5f9f891a773c3cd9f6fe89f4/256/256/Image/Webp/noFilter" alt="รูปภาพ"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    </div>
+                    <div class="message-text-area">
+                        <p class="message-text">สคริปแมพ Hunty Zombie!!</p>
+                        <div class="message-actions">
+                            <button class="copy-btn"
+                                onclick="copyMessage(this, "getgenv().Setting = {
+	Map = "Sewers",-- [ School / Sewers ]
+	Difficulty = "Normal",-- [ Normal / Hard  / Nightmare ]
+	Mode = "None",-- [ None / Campain  / Endless ]
+	Language = "Thai",--[ Thai / English ]
+	Farm_Mode = "Kai_tan",--[ Kai_tan = Farm ] U can delete ;)
+	WebHook = ""--[Yor Url Webhook]
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/heads/main/nk-hz2"))()")">คัดลอก</button>
+                            <span class="message-info">สคริปตัวนี้มีคีย์นะครับ หากเอาคีย์ไม่เป็น ลองดูท้ายคลิปนะครับ
+                                ขอบคุณครับ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Card 2 -->
+            <div class="message-card">
+                <div class="message-content">
+                    <div class="message-image">
+                        <img src="https://tr.rbxcdn.com/180DAY-0d3d8eff4fc2a3b89dcaa03f2860436c/512/512/Image/Webp/noFilter" alt="รูปภาพ"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    </div>
+                    <div class="message-text-area">
+                        <p class="message-text">สคริปแมพ 99 Night in the forest!!</p>
+                        <div class="message-actions">
+                            <button class="copy-btn"
+                                onclick="copyMessage(this, "loadstring(game:HttpGet('https://pastebin.com/raw/zyy57X37'))()")">คัดลอก</button>
+                            <span class="message-info">เล่นสคริปให้สนุกครับ ขอบคุณครับที่ใช้สคริป
+                                ขอบคุณครับ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เพิ่มข้อความใหม่ที่นี่ -->
+
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Somtank | ขอบคุณที่ใช้สคริปนะครับ</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                button.textContent = '🌙 เปลี่ยนธีม';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                button.textContent = '☀️ เปลี่ยนธีม';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function () {
+            const savedTheme = localStorage.getItem('theme');
+            const button = document.querySelector('.theme-toggle');
+
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                button.textContent = '☀️ เปลี่ยนธีม';
+            }
+        });
+
+        // Copy message function
+        function copyMessage(button, text) {
+            navigator.clipboard.writeText(text).then(function () {
+                const originalText = button.textContent;
+                button.textContent = 'คัดลอกแล้ว!';
+                button.classList.add('copied');
+
+                setTimeout(function () {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function () {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                button.textContent = 'คัดลอกแล้ว!';
+                button.classList.add('copied');
+
+                setTimeout(function () {
+                    button.textContent = 'คัดลอก';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+    </script>
+</body>
+
+</html>
