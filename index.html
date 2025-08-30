@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="th">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Somtank - สคริป</title>
     <style>
         * {
@@ -184,7 +185,8 @@
             align-items: center;
         }
 
-        .copy-btn {
+        .copy-btn,
+        .visit-btn {
             background: var(--accent);
             color: white;
             border: none;
@@ -194,15 +196,112 @@
             font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
-        .copy-btn:hover {
+        .copy-btn:hover,
+        .visit-btn:hover {
             background: var(--accent-hover);
             transform: scale(1.05);
         }
 
         .copy-btn.copied {
             background: #3fd77f;
+        }
+
+        .visit-btn {
+            background: #3182ce;
+        }
+
+        .visit-btn:hover {
+            background: #2c5aa0;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tab {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .category-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Category content sections */
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        }
+
+        /* Contact section */
+        .contact-section {
+            margin-top: 4rem;
+            padding: 3rem 0;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .contact-title {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-family: 'IBM Plex Sans Thai', 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(159, 122, 234, 0.4);
         }
 
         .message-info {
@@ -261,9 +360,20 @@
                 padding: 1.5rem;
             }
 
-            .copy-btn {
+            .copy-btn,
+            .visit-btn {
                 padding: 8px 16px;
                 font-size: 0.8rem;
+            }
+
+            .category-tab {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .contact-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -281,46 +391,245 @@
 
         <!-- Messages Section -->
         <section class="messages-section">
-            <h2 class="messages-title">สคริปทั้งหมดของ Somtank</h2>
+            <h2 class="messages-title">ขอบคุณที่เข้ามารับชมนะครับ</h2>
 
-            <!-- Message Card 1 -->
-            <div class="message-card">
-                <div class="message-content">
-                    <div class="message-image">
-                        <img src="https://tr.rbxcdn.com/180DAY-5966d10c5f9f891a773c3cd9f6fe89f4/256/256/Image/Webp/noFilter" alt="รูปภาพ"
-                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <button class="category-tab active" onclick="showCategory('scripts')">สคริป</button>
+                <button class="category-tab" onclick="showCategory('tools')">ตัวรัน</button>
+                <button class="category-tab" onclick="showCategory('tutorials')">วิธีใช้</button>
+                <button class="category-tab" onclick="showCategory('updates')">อัพเดต</button>
+            </div>
+
+            <!-- Scripts Category -->
+            <div class="category-content active" id="scripts">
+                <!-- Message Card 1 -->
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://tr.rbxcdn.com/180DAY-5966d10c5f9f891a773c3cd9f6fe89f4/256/256/Image/Webp/noFilter"
+                                alt="รูปภาพ" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">สคริปแมพ Hunty Zombie!!</p>
+                            <div class="message-actions">
+                                <button class="copy-btn" onclick="copyMessage(this, 'script1')">คัดลอก</button>
+                                <span class="message-info">สคริปตัวนี้มีคีย์นะครับ หากเอาคีย์ไม่เป็น ลองดูท้ายคลิปนะครับ
+                                    ขอบคุณครับ</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="message-text-area">
-                        <p class="message-text">สคริปแมพ Hunty Zombie!!</p>
-                        <div class="message-actions">
-                            <button class="copy-btn" onclick="copyMessage(this, 'script1')">คัดลอก</button>
-                            <span class="message-info">สคริปตัวนี้มีคีย์นะครับ หากเอาคีย์ไม่เป็น ลองดูท้ายคลิปนะครับ
-                                ขอบคุณครับ</span>
+                </div>
+
+                <!-- Message Card 2 -->
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://tr.rbxcdn.com/180DAY-0d3d8eff4fc2a3b89dcaa03f2860436c/512/512/Image/Webp/noFilter"
+                                alt="รูปภาพ" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">สคริปแมพ 99 Night in the forest!!</p>
+                            <div class="message-actions">
+                                <button class="copy-btn" onclick="copyMessage(this, 'script2')">คัดลอก</button>
+                                <span class="message-info">เล่นสคริปให้สนุกครับ ขอบคุณครับที่ใช้สคริป
+                                    ขอบคุณครับ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Message Card 2 -->
-            <div class="message-card">
-                <div class="message-content">
-                    <div class="message-image">
-                        <img src="https://tr.rbxcdn.com/180DAY-0d3d8eff4fc2a3b89dcaa03f2860436c/512/512/Image/Webp/noFilter" alt="รูปภาพ"
-                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+            <!-- Tools Category -->
+            <div class="category-content" id="tools">
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://imagedelivery.net/HL_Fwm__tlvUGLZF2p74xw/8542ac68-61fb-40b5-dcf4-74a5b8c69500/public" alt="รูปภาพ"
+                                style="width: 90%; height: 90%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ตัวรันนินจา Delta [ มือถือ ]</p>
+                            <div class="message-actions">
+                                <a href="https://deltaexploits.gg/delta-executor-android" class="visit-btn"
+                                    target="_blank">ไปยังเว็บไซต์</a>
+                                <span class="message-info">Executor ยอดนิยมสำหรับรัน script ใน Roblox บนมือถือ</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="message-text-area">
-                        <p class="message-text">สคริปแมพ 99 Night in the forest!!</p>
-                        <div class="message-actions">
-                            <button class="copy-btn" onclick="copyMessage(this, 'script2')">คัดลอก</button>
-                            <span class="message-info">เล่นสคริปให้สนุกครับ ขอบคุณครับที่ใช้สคริป
-                                ขอบคุณครับ</span>
+                </div>
+
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://codex.lol/static/icons/icon.svg" alt="รูปภาพ"
+                                style="width: 100%; height: 65%; object-fit: cover">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ตัวรัน Codex [ มือถือ ]</p>
+                            <div class="message-actions">
+                                <a href="https://codex.lol/" class="visit-btn" target="_blank">ไปยังเว็บไซต์</a>
+                                <span class="message-info">Executor ยอดนิยมสำหรับรัน script ใน Roblox บนมือถือ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://getcryptic.net/assets/moonglow-HcoSKqMr.png" alt="รูปภาพ"
+                                style="width: 100%; height: 100%; object-fit: cover">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ตัวรัน Cryptic [ มือถือ ]</p>
+                            <div class="message-actions">
+                                <a href="https://getcryptic.net/" class="visit-btn" target="_blank">ไปยังเว็บไซต์</a>
+                                <span class="message-info">Executor ยอดนิยมสำหรับรัน script ใน Roblox บนมือถือ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://krnl.cat/assets/Krnl_Logo.svg" alt="รูปภาพ"
+                                style="width: 100%; height: 100%; object-fit: cover">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ตัวรัน Krnl's [ มือถือ ]</p>
+                            <div class="message-actions">
+                                <a href="https://krnl.cat/" class="visit-btn" target="_blank">ไปยังเว็บไซต์</a>
+                                <span class="message-info">Executor ยอดนิยมสำหรับรัน script ใน Roblox บนมือถือ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://www.xeno.onl/images/xeno.png" alt="รูปภาพ"
+                                style="width: 90%; height: 90%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ตัวรัน Xeno [ คอม ]</p>
+                            <div class="message-actions">
+                                <a href="https://www.xeno.onl/" class="visit-btn" target="_blank">ไปยังเว็บไซต์</a>
+                                <span class="message-info">Executor ยอดนิยมสำหรับรัน script ใน Roblox บนคอมพิวเตอร์</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            <img src="https://framerusercontent.com/images/lh1FeiWi7hdMeAKWA8hVal157SI.png?scale-down-to=512" alt="รูปภาพ"
+                                style="width: 90%; height: 50%; object-fit: cover; border-radius: 12px;">
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ตัวรัน Swift [ คอม ]</p>
+                            <div class="message-actions">
+                                <a href="https://getswift.vip/" class="visit-btn" target="_blank">ไปยังเว็บไซต์</a>
+                                <span class="message-info">Executor ยอดนิยมสำหรับรัน script ใน Roblox บนคอมพิวเตอร์</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <!-- Tutorials Category -->
+            <div class="category-content" id="tutorials">
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            📚
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">วิธีการติดตั้งและใช้งาน Executor</p>
+                            <div class="message-actions">
+                                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="visit-btn"
+                                    target="_blank">ดูวิดีโอ</a>
+                                <span class="message-info">คลิปสอนใช้งานแบบละเอียด เหมาะสำหรับมือใหม่</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            🎬
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">การใช้งานสคริปแบบปลอดภัย</p>
+                            <div class="message-actions">
+                                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="visit-btn"
+                                    target="_blank">ดูวิดีโอ</a>
+                                <span class="message-info">เทคนิคป้องกันการโดนแบน พร้อมคำแนะนำ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- เพิ่มข้อความใหม่ที่นี่ -->
+            <!-- Updates Category -->
+            <div class="category-content" id="updates">
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            🆕
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">อัพเดตสคริป Hunty Zombie v2.1</p>
+                            <div class="message-actions">
+                                <a href="https://github.com/user/repo/releases" class="visit-btn"
+                                    target="_blank">ดูรายละเอียด</a>
+                                <span class="message-info">- แก้บัค farm mode<br>- เพิ่ม auto collect rewards<br>-
+                                    ปรับปรุง GUI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="message-card">
+                    <div class="message-content">
+                        <div class="message-image">
+                            📢
+                        </div>
+                        <div class="message-text-area">
+                            <p class="message-text">ประกาศ: เว็บไซต์ใหม่เปิดให้บริการแล้ว!</p>
+                            <div class="message-actions">
+                                <a href="#" class="visit-btn"
+                                    onclick="alert('คุณอยู่ในเว็บไซต์ใหม่แล้วครับ!')">เยี่ยมชม</a>
+                                <span class="message-info">ดีไซน์ใหม่ ใช้งานง่ายขึ้น พร้อมฟีเจอร์เพิ่มเติม</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <h2 class="contact-title">ช่องทางการติดต่อ</h2>
+                <div class="contact-buttons">
+                    <a href="https://discord.com/invite/4v4X79djPs" class="contact-btn" target="_blank">
+                        Discord
+                    </a>
+                    <a href="https://www.youtube.com/@somtank" class="contact-btn" target="_blank">
+                        YouTube
+                    </a>
+                    <a href="https://www.tiktok.com/@somtank888" class="contact-btn" target="_blank">
+                        Tiktok
+                    </a>
+                </div>
+            </div>
         </section>
     </div>
 
@@ -334,15 +643,7 @@
     <script>
         // Script storage object
         const scripts = {
-            'script1': `getgenv().Setting = {
-	Map = "Sewers",-- [ School / Sewers ]
-	Difficulty = "Normal",-- [ Normal / Hard  / Nightmare ]
-	Mode = "None",-- [ None / Campain  / Endless ]
-	Language = "Thai",--[ Thai / English ]
-	Farm_Mode = "Kai_tan",--[ Kai_tan = Farm ] U can delete ;)
-	WebHook = ""--[Yor Url Webhook]
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/heads/main/nk-hz2"))()`,
+            'script1': `loadstring(game:HttpGet("https://raw.githubusercontent.com/MQPS7/NoPlan/refs/heads/main/HuntyZombies1"))()`,
             'script2': `loadstring(game:HttpGet('https://pastebin.com/raw/zyy57X37'))()`
         };
 
@@ -376,7 +677,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
         // Copy message function - Fixed version
         function copyMessage(button, scriptId) {
             const text = scripts[scriptId];
-            
+
             if (!text) {
                 console.error('Script not found:', scriptId);
                 return;
@@ -406,7 +707,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-            
+
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
@@ -417,7 +718,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
             } catch (err) {
                 console.error('Copy command error:', err);
             }
-            
+
             document.body.removeChild(textArea);
         }
 
@@ -431,6 +732,31 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
                 button.textContent = originalText;
                 button.classList.remove('copied');
             }, 2000);
+        }
+
+        // Category management
+        function showCategory(categoryId) {
+            // Hide all category contents
+            const allContents = document.querySelectorAll('.category-content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const allTabs = document.querySelectorAll('.category-tab');
+            allTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected category
+            const selectedContent = document.getElementById(categoryId);
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+
+            // Add active class to clicked tab
+            const clickedTab = event.target;
+            clickedTab.classList.add('active');
         }
     </script>
 </body>
