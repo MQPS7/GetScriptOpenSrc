@@ -293,16 +293,7 @@
                     <div class="message-text-area">
                         <p class="message-text">สคริปแมพ Hunty Zombie!!</p>
                         <div class="message-actions">
-                            <button class="copy-btn"
-                                onclick="copyMessage(this, "getgenv().Setting = {
-	Map = "Sewers",-- [ School / Sewers ]
-	Difficulty = "Normal",-- [ Normal / Hard  / Nightmare ]
-	Mode = "None",-- [ None / Campain  / Endless ]
-	Language = "Thai",--[ Thai / English ]
-	Farm_Mode = "Kai_tan",--[ Kai_tan = Farm ] U can delete ;)
-	WebHook = ""--[Yor Url Webhook]
-}
-loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/heads/main/nk-hz2"))()")">คัดลอก</button>
+                            <button class="copy-btn" onclick="copyMessage(this, 'script1')">คัดลอก</button>
                             <span class="message-info">สคริปตัวนี้มีคีย์นะครับ หากเอาคีย์ไม่เป็น ลองดูท้ายคลิปนะครับ
                                 ขอบคุณครับ</span>
                         </div>
@@ -320,8 +311,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
                     <div class="message-text-area">
                         <p class="message-text">สคริปแมพ 99 Night in the forest!!</p>
                         <div class="message-actions">
-                            <button class="copy-btn"
-                                onclick="copyMessage(this, "loadstring(game:HttpGet('https://pastebin.com/raw/zyy57X37'))()")">คัดลอก</button>
+                            <button class="copy-btn" onclick="copyMessage(this, 'script2')">คัดลอก</button>
                             <span class="message-info">เล่นสคริปให้สนุกครับ ขอบคุณครับที่ใช้สคริป
                                 ขอบคุณครับ</span>
                         </div>
@@ -342,6 +332,20 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
     </footer>
 
     <script>
+        // Script storage object
+        const scripts = {
+            'script1': `getgenv().Setting = {
+	Map = "Sewers",-- [ School / Sewers ]
+	Difficulty = "Normal",-- [ Normal / Hard  / Nightmare ]
+	Mode = "None",-- [ None / Campain  / Endless ]
+	Language = "Thai",--[ Thai / English ]
+	Farm_Mode = "Kai_tan",--[ Kai_tan = Farm ] U can delete ;)
+	WebHook = ""--[Yor Url Webhook]
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/heads/main/nk-hz2"))()`,
+            'script2': `loadstring(game:HttpGet('https://pastebin.com/raw/zyy57X37'))()`
+        };
+
         // Theme Toggle
         function toggleTheme() {
             const body = document.body;
@@ -369,36 +373,65 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/HJSIWN/BoaYoga/refs/h
             }
         });
 
-        // Copy message function
-        function copyMessage(button, text) {
-            navigator.clipboard.writeText(text).then(function () {
-                const originalText = button.textContent;
-                button.textContent = 'คัดลอกแล้ว!';
-                button.classList.add('copied');
+        // Copy message function - Fixed version
+        function copyMessage(button, scriptId) {
+            const text = scripts[scriptId];
+            
+            if (!text) {
+                console.error('Script not found:', scriptId);
+                return;
+            }
 
-                setTimeout(function () {
-                    button.textContent = originalText;
-                    button.classList.remove('copied');
-                }, 2000);
-            }).catch(function () {
+            // Modern browsers
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function () {
+                    showCopySuccess(button);
+                }).catch(function (err) {
+                    console.error('Copy failed:', err);
+                    fallbackCopy(button, text);
+                });
+            } else {
                 // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-
-                button.textContent = 'คัดลอกแล้ว!';
-                button.classList.add('copied');
-
-                setTimeout(function () {
-                    button.textContent = 'คัดลอก';
-                    button.classList.remove('copied');
-                }, 2000);
-            });
+                fallbackCopy(button, text);
+            }
         }
 
+        // Fallback copy method
+        function fallbackCopy(button, text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopySuccess(button);
+                } else {
+                    console.error('Copy command failed');
+                }
+            } catch (err) {
+                console.error('Copy command error:', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Show copy success feedback
+        function showCopySuccess(button) {
+            const originalText = button.textContent;
+            button.textContent = 'คัดลอกแล้ว!';
+            button.classList.add('copied');
+
+            setTimeout(function () {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
     </script>
 </body>
 
